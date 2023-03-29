@@ -25,6 +25,7 @@ class User extends Authenticatable
         'nik',
         'avatar',
         'no_hp',
+        'api_token',
     ];
 
     /**

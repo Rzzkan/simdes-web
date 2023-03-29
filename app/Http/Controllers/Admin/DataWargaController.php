@@ -80,6 +80,7 @@ class DataWargaController extends Controller
             'role' => 'Warga',
             'nik' => $request->nik,
             'password' => Hash::make(date('dmY', strtotime($request->tanggal_lahir))),
+            'api_token' => Hash::make(date('dmY', strtotime($request->tanggal_lahir)) . $request->nik),
         ]);
 
         $data_input = DataWargaModel::create([
