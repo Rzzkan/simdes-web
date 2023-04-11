@@ -26,8 +26,8 @@
                 <label class="col-12">Role</label>
                 <div class="col-sm-12">
                     <select class="form-control form-control-normal" name="role">
-                        <option>VIP</option>
-                        <option>Warga</option>
+                        <option value="Warga">Warga</option>
+                        <option value="VIP">VIP</option>
                     </select>
                 </div>
             </div>

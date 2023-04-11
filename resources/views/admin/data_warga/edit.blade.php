@@ -27,8 +27,8 @@
                 <label class="col-12">Role</label>
                 <div class="col-sm-12">
                     <select class="form-control form-control-normal" name="role">
-                        <option @if($data_edit->role == 'Warga') selected @endif>Warga</option>
-                        <option @if($data_edit->role == 'VIP') selected @endif>VIP</option>
+                        <option value="Warga" @if($data_edit->role=='Warga') selected @endif>Warga</option>
+                        <option value="VIP" @if($data_edit->role=='VIP') selected @endif>VIP</option>
                     </select>
                 </div>
             </div>
@@ -64,7 +64,7 @@
             <div class="form-group col-md-6">
                 <label class="col-12">Tanggal Lahir</label>
                 <div class="col-sm-12">
-                    <input placeholder="Tanggal Lahir..." type="date" name="tanggal_lahir" value="{{ date('Y-m-d', $data_edit->Tanggal_lahir) }}" class="form-control form-control-normal">
+                    <input placeholder="Tanggal Lahir..." type="date" name="tanggal_lahir" value="{{ $data_edit->Tanggal_lahir }}" class="form-control form-control-normal">
                 </div>
             </div>
 

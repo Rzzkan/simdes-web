@@ -14,7 +14,9 @@ class APBDesaController extends Controller
         $title = 'Dok. Realisasi APB Desa';
         $subtitle = 'Data Dok. Realisasi APB Desa';
 
-        $all_data = APBDesaModel::all();
+        $all_data = APBDesaModel::with('user')
+            ->orderby('id', 'DESC')
+            ->get();
 
         return view('admin.apb_desa.index', compact(
             'toptitle',

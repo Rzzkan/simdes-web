@@ -12,7 +12,7 @@ class LapakDesaModel extends Model
     protected $table = 'lapak_desa';
 
     protected $fillable = [
-        'id_user', 'id_kategori', 'judul', 'deskripsi', 'gambar'
+        'id_user', 'id_kategori', 'judul', 'harga', 'deskripsi', 'gambar'
     ];
 
     protected $hidden = [];

@@ -12,7 +12,7 @@ class PengajuanSuratModel extends Model
     protected $table = 'pengajuan_surat';
 
     protected $fillable = [
-        'id_user', 'id_jenis_surat', 'tindakan', 'catatan', 'berkas'
+        'id_user', 'id_jenis_surat', 'tindakan', 'catatan', 'berkas', 'status_notif'
     ];
 
     protected $hidden = [];

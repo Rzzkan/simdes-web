@@ -12,7 +12,7 @@ class PengaduanModel extends Model
     protected $table = 'pengaduan';
 
     protected $fillable = [
-        'id_user', 'gambar', 'deskripsi', 'catatan', 'tindakan'
+        'id_user', 'gambar', 'deskripsi', 'catatan', 'tindakan', 'status_notif'
     ];
 
     protected $hidden = [];

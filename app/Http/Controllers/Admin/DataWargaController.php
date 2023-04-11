@@ -77,7 +77,7 @@ class DataWargaController extends Controller
             'name' => $request->nama,
             'email' => $request->nik . "@gmail.com",
             'no_hp' => $request->no_hp,
-            'role' => 'Warga',
+            'role' => $request->role,
             'nik' => $request->nik,
             'password' => Hash::make(date('dmY', strtotime($request->tanggal_lahir))),
             'api_token' => Hash::make(date('dmY', strtotime($request->tanggal_lahir)) . $request->nik),
@@ -86,7 +86,7 @@ class DataWargaController extends Controller
         $data_input = DataWargaModel::create([
             'id_user' => $user->id,
             'tempat_lahir' => $request->tempat_lahir,
-            'Tanggal_lahir' => strtotime($request->tanggal_lahir),
+            'Tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'agama' => $request->agama,
@@ -163,11 +163,12 @@ class DataWargaController extends Controller
         $dataUpUser['name'] = $request->nama;
         $dataUpUser['email'] = $request->nik . "@gmail.com";
         $dataUpUser['nik'] = $request->nik;
+        $dataUpUser['role'] = $request->role;
         $dataUpUser['no_hp'] = $request->no_hp;
         $dataUpUser['password'] = Hash::make(date('dmY', strtotime($request->tanggal_lahir)));
 
         $dataUp['tempat_lahir'] = $request->tempat_lahir;
-        $dataUp['Tanggal_lahir'] = strtotime($request->tanggal_lahir);
+        $dataUp['Tanggal_lahir'] = $request->tanggal_lahir;
         $dataUp['jenis_kelamin'] = $request->jenis_kelamin;
         $dataUp['alamat'] = $request->alamat;
         $dataUp['agama'] = $request->agama;

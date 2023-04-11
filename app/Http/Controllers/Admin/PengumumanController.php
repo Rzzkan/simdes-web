@@ -14,7 +14,9 @@ class PengumumanController extends Controller
         $title = 'Kelola Pengumuman';
         $subtitle = 'Data Pengumuman';
 
-        $all_data = PengumumanModel::all();
+        $all_data = PengumumanModel::with('user')
+            ->orderby('id', 'DESC')
+            ->get();
 
         return view('admin.pengumuman.index', compact(
             'toptitle',

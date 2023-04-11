@@ -25,6 +25,7 @@ class PengajuanSuratController extends Controller
             ->select('pengajuan_surat.*', 'users.name as nama_user', 'jenis_surat.nama as nama_surat')
             ->leftJoin('users', 'users.id', '=', 'pengajuan_surat.id_user')
             ->leftJoin('jenis_surat', 'jenis_surat.id', '=', 'pengajuan_surat.id_jenis_surat')
+            ->orderby('id', 'DESC')
             ->get();
 
         return view('admin.pengajuan_surat.index', compact(
@@ -96,6 +97,11 @@ class PengajuanSuratController extends Controller
             })
             ->where('syarat_pengajuan_surat.id_jenis_surat', $data_edit->id_jenis_surat)
             ->get();
+
+        $dataUp['status_notif'] = '1';
+
+        $data_up = PengajuanSuratModel::findOrFail($id);
+        $data_up->update($dataUp);
 
         return view('admin.pengajuan_surat.edit', compact(
             'toptitle',

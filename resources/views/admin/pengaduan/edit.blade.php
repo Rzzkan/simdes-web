@@ -19,6 +19,9 @@
 
             <strong>Oleh: {{ $data_edit->user->name }}</strong><br>
             <small>{{ $data_edit->deskripsi }}</small><br>
+            <div class="col-md-3">
+                <img class="img-thumbnail" src="{{ asset($data_edit->gambar) }}" alt="">
+            </div>
             <hr>
             <strong>Tindakan: </strong>
             <div class="form-group col-md-4">

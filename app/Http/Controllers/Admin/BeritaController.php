@@ -19,7 +19,9 @@ class BeritaController extends Controller
         $title = 'Kelola Berita';
         $subtitle = 'Data Berita';
 
-        $all_data = BeritaModel::with('user')->get();
+        $all_data = BeritaModel::with('user')
+            ->orderby('id', 'DESC')
+            ->get();
 
         return view('admin.berita.index', compact(
             'toptitle',

@@ -62,7 +62,7 @@
                                     <strong><small>Kewarganegaraan : <br></small></strong>
                                     {{ $dt->kewarganegaraan }}<br>
                                     <strong><small>TTL : <br></small></strong>
-                                    {{ $dt->tempat_lahir . ', ' . date('d-m-Y', $dt->Tanggal_lahir) }}<br>
+                                    {{ $dt->tempat_lahir . ', ' . $dt->Tanggal_lahir }}<br>
                                     <strong><small>Jenis Kelamin : <br></small></strong>
                                     {{ $dt->jenis_kelamin }}<br>
                                 </td>

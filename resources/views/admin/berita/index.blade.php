@@ -29,6 +29,7 @@
                         <thead class="" style="background-color: #EEEEEE;">
                             <tr>
                                 <th class="">No.</th>
+                                <th class="">Tanggal</th>
                                 <th class="">Judul</th>
                                 <th class="">Aksi</th>
                             </tr>
@@ -40,6 +41,9 @@
                             @foreach ($all_data as $dt)
                             <tr>
                                 <td class=""><button class="btn bg-gradient-info btn-sm px-3 mb-0 disabled">{{ $no++ }}</button></td>
+                                <td>
+                                    {{ $dt->created_at }}
+                                </td>
                                 <td class="">
                                     <strong>{{ $dt->judul }}</strong><br>
                                     <small>Oleh: {{ $dt->user->name }}</small>

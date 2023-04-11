@@ -14,7 +14,9 @@ class PengaduanController extends Controller
         $title = 'Kelola Pengaduan';
         $subtitle = 'Data Pengaduan';
 
-        $all_data = PengaduanModel::all();
+        $all_data = PengaduanModel::with('user')
+            ->orderby('id', 'DESC')
+            ->get();
 
         return view('admin.pengaduan.index', compact(
             'toptitle',
@@ -69,7 +71,12 @@ class PengaduanController extends Controller
         $title = 'Kelola Pengaduan';
         $subtitle = 'Edit Pengaduan';
 
-        $data_edit = PengaduanModel::where('id', $id)->first();
+        $dataUp['status_notif'] = '1';
+
+        $data_up = PengaduanModel::findOrFail($id);
+        $data_up->update($dataUp);
+
+        $data_edit = $data_up;
 
         return view('admin.pengaduan.edit', compact(
             'toptitle',
@@ -97,7 +104,6 @@ class PengaduanController extends Controller
         $dataUp['tindakan'] = $request->tindakan;
         $dataUp['catatan'] = $request->catatan;
 
-        $data_up = PengaduanModel::findOrFail($id);
         $data_up->update($dataUp);
         return redirect()->route('pengaduan.index')->with(['success' => 'Data Berhasil Disimpan']);
     }

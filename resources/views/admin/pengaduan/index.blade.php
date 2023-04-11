@@ -29,6 +29,7 @@
                         <thead class="" style="background-color: #EEEEEE;">
                             <tr>
                                 <th class="">No.</th>
+                                <th class="">Tanggal</th>
                                 <th class="">Pengaduan</th>
                                 <th class="">Status</th>
                                 <th class="">Aksi</th>
@@ -41,6 +42,15 @@
                             @foreach ($all_data as $dt)
                             <tr>
                                 <td class=""><button class="btn bg-gradient-info btn-sm px-3 mb-0 disabled">{{ $no++ }}</button></td>
+                                <td>
+                                    @if($dt->status_notif=='0')
+                                    <small class="badge bg-success" style="padding: 3px 8px 3px 8px; font-size: 8px;">
+                                        Baru
+                                    </small>
+                                    <br>
+                                    @endif
+                                    {{ $dt->created_at }}
+                                </td>
                                 <td class="">
                                     <strong>{{ substr($dt->deskripsi,0,50) . "...." }}</strong><br>
                                     <small>Oleh: {{ $dt->user->name }}</small>

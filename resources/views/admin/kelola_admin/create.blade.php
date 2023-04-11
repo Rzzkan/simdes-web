@@ -14,7 +14,10 @@
 <div class="card col-md-12">
     <div class="card-body">
         <strong>{{ $subtitle }}</strong><br>
-        <span>Isikan <code> form data </code> dengan benar! </span>
+        <span>Isikan <code> form data </code> dengan benar! </span><br>
+        <small class="text-danger">*Password secara otomatis akan terisi dengan email terdaftar. <br>
+            *Contoh saat mendaftarkan <strong>budi@gmail.com</strong> maka password untuk login adalah <strong>budi@gmail.com</strong><br>
+            *Pastikan pemilik akun segera mengubah <strong>password</strong> untuk keamanan akun!</small>
         <form class="row mt-3" method="POST" action="{{ route('kelola_admin.store') }}" enctype="multipart/form-data">
             @csrf
 

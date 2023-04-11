@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\PengumumanController;
 use App\Http\Controllers\Admin\PetaDesaController;
 use App\Http\Controllers\Admin\ProfilController;
 use App\Http\Controllers\Admin\SdgsController;
+use App\Http\Controllers\Admin\StatistikWargaController;
 use App\Http\Controllers\Admin\SyaratPengajuanSuratController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,32 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::resource('dashboard', DashboardController::class)->middleware(['checkRole:Super Admin,Admin,VIP,Warga']);
+Route::group(['prefix' => 'statistik_warga'], function () {
+    Route::get('umur_rentang', [StatistikWargaController::class, 'umur_rentang'])
+        ->name('statistik_warga.umur_rentang');
+    Route::get('umur_kategori', [StatistikWargaController::class, 'umur_kategori'])
+        ->name('statistik_warga.umur_kategori');
+    Route::get('status_pernikahan', [StatistikWargaController::class, 'status_pernikahan'])
+        ->name('statistik_warga.status_pernikahan');
+    Route::get('agama', [StatistikWargaController::class, 'agama'])
+        ->name('statistik_warga.agama');
+    Route::get('jenis_kelamin', [StatistikWargaController::class, 'jenis_kelamin'])
+        ->name('statistik_warga.jenis_kelamin');
+    Route::get('kewarganegaraan', [StatistikWargaController::class, 'kewarganegaraan'])
+        ->name('statistik_warga.kewarganegaraan');
+    Route::get('status_penduduk', [StatistikWargaController::class, 'status_penduduk'])
+        ->name('statistik_warga.status_penduduk');
+    Route::get('penyandang_cacat', [StatistikWargaController::class, 'penyandang_cacat'])
+        ->name('statistik_warga.penyandang_cacat');
+    Route::get('penyakit_menahun', [StatistikWargaController::class, 'penyakit_menahun'])
+        ->name('statistik_warga.penyakit_menahun');
+    Route::get('status_vaksin', [StatistikWargaController::class, 'status_vaksin'])
+        ->name('statistik_warga.status_vaksin');
+    Route::get('sdgs', [StatistikWargaController::class, 'sdgs'])
+        ->name('statistik_warga.sdgs');
+});
+
+Route::resource('dashboard', DashboardController::class)->middleware(['checkRole:Super Admin,Admin,VIP']);
 Route::resource('berita', BeritaController::class)->middleware(['checkRole:Super Admin,Admin']);
 Route::resource('pengumuman', PengumumanController::class)->middleware(['checkRole:Super Admin,Admin']);
 Route::resource('pengaduan', PengaduanController::class)->middleware(['checkRole:Super Admin,Admin']);
