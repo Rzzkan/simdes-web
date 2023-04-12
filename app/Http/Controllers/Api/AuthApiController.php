@@ -13,10 +13,24 @@ class AuthApiController extends Controller
 {
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
+        $request->validate([
+            'password' => 'required',
+        ]);
+
+        $email = $request->email;
+        $nik = $request->nik;
+        $password = $request->password;
+
+        $user = null;
+        if ($email != null) {
+            $user = User::where('email', $email)->first();
+        } else if ($nik != null) {
+            $user = User::where('nik', $nik)->first();
+        } else {
+        }
+
+        if (password_verify($password, $user->password)) {
             $get_data['user'] = $user;
             return response()->json([
                 'message' => 'Berhasil',
@@ -24,6 +38,18 @@ class AuthApiController extends Controller
                 'response' => true,
             ], 200);
         }
+
+        // $credentials = $request->only('email', 'password');
+
+        // if (Auth::attempt($credentials)) {
+        //     $user = Auth::user();
+        //     $get_data['user'] = $user;
+        //     return response()->json([
+        //         'message' => 'Berhasil',
+        //         'data' => $get_data,
+        //         'response' => true,
+        //     ], 200);
+        // }
 
         return response()->json(['error' => 'Unauthorized'], 401);
     }
