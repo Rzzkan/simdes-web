@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\APBDesaModel;
+use App\Models\JDIHModel;
 use Illuminate\Http\Request;
 
-class APBDesaController extends Controller
+class JDIHController extends Controller
 {
     public function index()
     {
         $toptitle = 'Data Desa';
-        $title = 'Dok. Realisasi APB Desa';
-        $subtitle = 'Data Dok. Realisasi APB Desa';
+        $title = 'Dok. JDIH';
+        $subtitle = 'Data Dok. JDIH';
 
-        $all_data = APBDesaModel::with('user')
+        $all_data = JDIHModel::with('user')
             ->orderby('id', 'DESC')
             ->get();
 
-        return view('admin.apb_desa.index', compact(
+        return view('admin.jdih.index', compact(
             'toptitle',
             'title',
             'subtitle',
@@ -34,10 +34,10 @@ class APBDesaController extends Controller
     public function create()
     {
         $toptitle = 'Data Desa';
-        $title = 'Dok. Realisasi APB Desa';
-        $subtitle = 'Tambah Dok. Realisasi APB Desa';
+        $title = 'Dok. JDIH';
+        $subtitle = 'Tambah Dok. JDIH';
 
-        return view('admin.apb_desa.create', compact(
+        return view('admin.jdih.create', compact(
             'toptitle',
             'title',
             'subtitle',
@@ -67,13 +67,13 @@ class APBDesaController extends Controller
             $berkas = 'berkas/' . $fileName;
         }
 
-        $data_input = APBDesaModel::create([
+        $data_input = JDIHModel::create([
             'id_user' => auth()->user()->id,
             'judul' => $request->judul,
             'berkas' => $berkas,
         ]);
 
-        return redirect()->route('apb_desa.index')->with(['success' => 'Data Berhasil Disimpan']);
+        return redirect()->route('jdih.index')->with(['success' => 'Data Berhasil Disimpan']);
     }
 
     /**
@@ -96,12 +96,12 @@ class APBDesaController extends Controller
     public function edit($id)
     {
         $toptitle = 'Data Desa';
-        $title = 'Dok. Realisasi APB Desa';
-        $subtitle = 'Edit Dok. Realisasi APB Desa';
+        $title = 'Dok. JDIH';
+        $subtitle = 'Edit Dok. JDIH';
 
-        $data_edit = APBDesaModel::where('id', $id)->first();
+        $data_edit = JDIHModel::where('id', $id)->first();
 
-        return view('admin.apb_desa.edit', compact(
+        return view('admin.jdih.edit', compact(
             'toptitle',
             'title',
             'subtitle',
@@ -122,7 +122,7 @@ class APBDesaController extends Controller
             'judul' => 'required',
         ]);
 
-        $data_up = APBDesaModel::findOrFail($id);
+        $data_up = JDIHModel::findOrFail($id);
 
         $fileName = $data_up->berkas;
 
@@ -140,9 +140,9 @@ class APBDesaController extends Controller
 
         $dataUp['judul'] = $request->judul;
 
-        $data_up = APBDesaModel::findOrFail($id);
+        $data_up = JDIHModel::findOrFail($id);
         $data_up->update($dataUp);
-        return redirect()->route('apb_desa.index')->with(['success' => 'Data Berhasil Disimpan']);
+        return redirect()->route('jdih.index')->with(['success' => 'Data Berhasil Disimpan']);
     }
 
     /**
@@ -153,8 +153,8 @@ class APBDesaController extends Controller
      */
     public function destroy($id)
     {
-        $data_del = APBDesaModel::find($id);
+        $data_del = JDIHModel::find($id);
         $data_del->delete();
-        return redirect()->route('apb_desa.index')->with(['success' => 'Data Berhasil Dihapus']);
+        return redirect()->route('jdih.index')->with(['success' => 'Data Berhasil Dihapus']);
     }
 }

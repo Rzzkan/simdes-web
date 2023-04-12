@@ -20,7 +20,7 @@
             @method("PUT")
 
             <hr class="horizontal dark my-3">
-            <strong class="text-center text-dark">Data Diri</strong>
+            <strong class="text-center text-dark">Data Per Warga</strong>
             <hr class="horizontal dark my-3">
 
             <div class="form-group col-md-6">

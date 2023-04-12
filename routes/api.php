@@ -38,3 +38,5 @@ Route::middleware('auth:api')->get('/lapak_desa', 'App\Http\Controllers\Api\Lapa
 Route::middleware('auth:api')->get('/top_lapak_desa', 'App\Http\Controllers\Api\LapakDesaApiController@top_5');
 Route::middleware('auth:api')->get('/apb_desa', 'App\Http\Controllers\Api\RealisasiAPBDesaApiController@get');
 Route::middleware('auth:api')->get('/top_apb_desa', 'App\Http\Controllers\Api\RealisasiAPBDesaApiController@top_5');
+Route::middleware('auth:api')->get('/jdih', 'App\Http\Controllers\Api\JDIHApiController@get');
+Route::middleware('auth:api')->get('/top_jdih', 'App\Http\Controllers\Api\JDIHApiController@top_5');

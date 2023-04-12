@@ -19,7 +19,25 @@
             @csrf
 
             <hr class="horizontal dark my-3">
-            <strong class="text-center text-dark">Data Diri</strong>
+            <strong class="text-center text-dark">Data Warga Bulk</strong>
+            <hr class="horizontal dark my-3">
+
+            <div class="form-group col-md-6">
+                <label class="col-12">File Data Warga (.xlxs , .xls).
+                    <i><a href="{{ asset('berkas/template_import_data_warga_bulk.xlsx') }}" target="_blank" class="text-success">Unduh Template</a></i></label>
+                <div class="col-sm-12">
+                    <input type="file" name="file_data_warga" class="form-control form-control-normal" placeholder="File Data Warga...">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-success"><i class="far fa-save" style="margin-right: 8px;"></i> Simpan </button>
+                </div>
+            </div>
+
+            <hr class="horizontal dark my-3">
+            <strong class="text-center text-dark">Data Per Warga</strong>
             <hr class="horizontal dark my-3">
 
             <div class="form-group col-md-6">

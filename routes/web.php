@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\APBDesaController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DataWargaController;
+use App\Http\Controllers\Admin\JDIHController;
 use App\Http\Controllers\Admin\JenisSuratController;
 use App\Http\Controllers\Admin\KelolaAdminController;
 use App\Http\Controllers\Admin\KonfigurasiController;
@@ -59,6 +60,7 @@ Route::resource('data_warga', DataWargaController::class)->middleware(['checkRol
 Route::resource('peta_desa', PetaDesaController::class)->middleware(['checkRole:Super Admin,Admin']);
 Route::resource('lapak_desa', LapakDesaController::class)->middleware(['checkRole:Super Admin,Admin']);
 Route::resource('apb_desa', APBDesaController::class)->middleware(['checkRole:Super Admin,Admin']);
+Route::resource('jdih', JDIHController::class)->middleware(['checkRole:Super Admin,Admin']);
 
 Route::resource('kelola_admin', KelolaAdminController::class)->middleware(['checkRole:Super Admin,Admin']);
 Route::resource('jenis_surat', JenisSuratController::class)->middleware(['checkRole:Super Admin,Admin']);

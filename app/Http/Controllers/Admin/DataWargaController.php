@@ -7,6 +7,10 @@ use App\Models\DataWargaModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class DataWargaController extends Controller
 {
@@ -21,7 +25,7 @@ class DataWargaController extends Controller
         $title = 'Kelola Data Warga';
         $subtitle = 'Data Data Warga';
 
-        $all_data = DataWargaModel::with('user')->get();
+        $all_data = DataWargaModel::with('user')->paginate(10);
 
         return view('admin.data_warga.index', compact(
             'toptitle',
@@ -58,47 +62,93 @@ class DataWargaController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nik' => 'required',
-            'nama' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required',
-            'alamat' => 'required',
-            'agama' => 'required',
-            'status_perkawinan' => 'required',
-            'kewarganegaraan' => 'required',
-            'pendidikan' => 'required',
-            'status_penduduk' => 'required',
-            'status_vaksin' => 'required',
+        $file = $request->file('file_data_warga');
+
+        $validator = FacadesValidator::make($request->all(), [
+            'file_data_warga' => 'required|mimes:xlsx,xls'
         ]);
 
-        $user = User::create([
-            'name' => $request->nama,
-            'email' => $request->nik . "@gmail.com",
-            'no_hp' => $request->no_hp,
-            'role' => $request->role,
-            'nik' => $request->nik,
-            'password' => Hash::make(date('dmY', strtotime($request->tanggal_lahir))),
-            'api_token' => Hash::make(date('dmY', strtotime($request->tanggal_lahir)) . $request->nik),
-        ]);
+        if ($validator->fails()) {
+            $request->validate([
+                'nik' => 'required',
+                'nama' => 'required',
+                'tempat_lahir' => 'required',
+                'tanggal_lahir' => 'required',
+                'jenis_kelamin' => 'required',
+                'alamat' => 'required',
+                'agama' => 'required',
+                'status_perkawinan' => 'required',
+                'kewarganegaraan' => 'required',
+                'pendidikan' => 'required',
+                'status_penduduk' => 'required',
+                'status_vaksin' => 'required',
+            ]);
 
-        $data_input = DataWargaModel::create([
-            'id_user' => $user->id,
-            'tempat_lahir' => $request->tempat_lahir,
-            'Tanggal_lahir' => $request->tanggal_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
-            'agama' => $request->agama,
-            'status_perkawinan' => $request->status_perkawinan,
-            'kewarganegaraan' => $request->kewarganegaraan,
-            'pekerjaan' => $request->pekerjaan,
-            'pendidikan' => $request->pendidikan,
-            'status_penduduk' => $request->status_penduduk,
-            'penyandang_cacat' => $request->penyandang_cacat,
-            'penyakit_menahun' => $request->penyakit_menahun,
-            'status_vaksin' => $request->status_vaksin,
-        ]);
+            $user = User::create([
+                'name' => $request->nama,
+                'email' => $request->nik . "@gmail.com",
+                'no_hp' => $request->no_hp,
+                'role' => $request->role,
+                'nik' => $request->nik,
+                'password' => Hash::make(date('dmY', strtotime($request->tanggal_lahir))),
+                'api_token' => Hash::make(date('dmY', strtotime($request->tanggal_lahir)) . $request->nik),
+            ]);
+
+            $data_input = DataWargaModel::create([
+                'id_user' => $user->id,
+                'tempat_lahir' => $request->tempat_lahir,
+                'Tanggal_lahir' => $request->tanggal_lahir,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'alamat' => $request->alamat,
+                'agama' => $request->agama,
+                'status_perkawinan' => $request->status_perkawinan,
+                'kewarganegaraan' => $request->kewarganegaraan,
+                'pekerjaan' => $request->pekerjaan,
+                'pendidikan' => $request->pendidikan,
+                'status_penduduk' => $request->status_penduduk,
+                'penyandang_cacat' => $request->penyandang_cacat,
+                'penyakit_menahun' => $request->penyakit_menahun,
+                'status_vaksin' => $request->status_vaksin,
+            ]);
+            return redirect()->route('data_warga.index')->with(['success' => 'Data Berhasil Disimpan']);
+        }
+
+        // $data = Excel::load($file, function ($reader) {
+        // })->get();
+        // Load data dari file excel
+        // Undefined type 'App\Http\Controllers\Admin\PHPExcel_Style_NumberFormat'.
+        $row = Excel::toArray([], $file)[0];
+
+        for ($i = 8; $i < count($row); $i++) {
+            $tanggal_lahir = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[$i][6])->format('Y-m-d');
+
+            $user = User::create([
+                'name' => $row[$i][1],
+                'email' => $row[$i][4] . "@gmail.com",
+                'no_hp' => $row[$i][2],
+                'role' => $row[$i][3],
+                'nik' => $row[$i][4],
+                'password' => Hash::make(date('dmY', strtotime($tanggal_lahir))),
+                'api_token' => Hash::make(date('dmY', strtotime($tanggal_lahir)) . $row[$i][4]),
+            ]);
+
+            $data_input = DataWargaModel::create([
+                'id_user' => $user->id,
+                'tempat_lahir' => $row[$i][5],
+                'Tanggal_lahir' => $tanggal_lahir,
+                'jenis_kelamin' => $row[$i][7],
+                'alamat' => $row[$i][8],
+                'agama' => $row[$i][9],
+                'status_perkawinan' => $row[$i][10],
+                'kewarganegaraan' => $row[$i][11],
+                'pekerjaan' => $row[$i][12],
+                'pendidikan' => $row[$i][13],
+                'status_penduduk' => $row[$i][14],
+                'penyandang_cacat' => $row[$i][15],
+                'penyakit_menahun' => $row[$i][16],
+                'status_vaksin' => $row[$i][17],
+            ]);
+        }
 
         return redirect()->route('data_warga.index')->with(['success' => 'Data Berhasil Disimpan']);
     }
