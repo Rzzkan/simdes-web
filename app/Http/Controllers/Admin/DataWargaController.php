@@ -69,8 +69,9 @@ class DataWargaController extends Controller
         ]);
 
         if ($validator->fails()) {
+
             $request->validate([
-                'nik' => 'required',
+                'nik' => 'required|unique:users',
                 'nama' => 'required',
                 'tempat_lahir' => 'required',
                 'tanggal_lahir' => 'required',
@@ -121,6 +122,12 @@ class DataWargaController extends Controller
 
         for ($i = 8; $i < count($row); $i++) {
             $tanggal_lahir = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[$i][6])->format('Y-m-d');
+
+            $cek_nik = User::where('nik', $row[$i][4])->first();
+
+            if ($cek_nik != null) {
+                return redirect()->route('data_warga.create')->with(['danger' => 'Terjadi kesalahan pada baris excel ke ' . $i + 1 . ', NIK Telah terdaftar! Mohon periksa kembali file excel terlampir!']);
+            }
 
             $user = User::create([
                 'name' => $row[$i][1],

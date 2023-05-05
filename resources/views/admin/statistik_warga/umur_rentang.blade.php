@@ -133,6 +133,73 @@
         </div>
     </div>
 
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <div class="col-xl-12 col-sm-12 mb-xl-12 mb-4" id="container" style="min-width: 310px; height: 400px;"></div>
+    <script>
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '{{ $title }}'
+            },
+            subtitle: {
+                text: '{{ $subtitle }}'
+            },
+            xAxis: {
+                //INI ADALAH UNTUK KOLOM KETERANGAN
+                categories: [
+                    'Usia 0-5 Tahun',
+                    'Usia 6-20 Tahun',
+                    'Usia 21-40 Tahun',
+                    'Usia 41-50 Tahun',
+                    'Usia 51-60 Tahun',
+                    'Usia > 60 Tahun',
+                ],
+                title: {
+                    text: '{{ $subtitle }}'
+                },
+                crosshair: true
+            },
+            yAxis: {
+
+                title: {
+                    text: 'Jumlah'
+                }
+            },
+
+            tooltip: {
+                headerFormat: '<span style="font-size:8pt">{point.key}</span><table style="font-size:8pt">',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">Jml.: </td>' +
+                    '<td style="padding:0"><b>{point.y:.0f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.,
+                    borderWidth: 0
+                }
+            },
+
+            series: [{
+                colorByPoint: true,
+                showInLegend: false,
+
+                data: [<?php echo $get_data['usia0_5'] ?>,
+                    <?php echo  $get_data['usia6_20'] ?>,
+                    <?php echo  $get_data['usia21_40'] ?>,
+                    <?php echo  $get_data['usia41_50'] ?>,
+                    <?php echo  $get_data['usia51_60'] ?>,
+                    <?php echo  $get_data['usia61_plus'] ?>
+                ] //INI ADALAH UNTUK JUMLAH
+
+            }, ]
+        });
+    </script>
+
 </div>
 
 @endsection

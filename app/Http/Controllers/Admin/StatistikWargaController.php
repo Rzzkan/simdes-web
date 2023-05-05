@@ -275,7 +275,7 @@ class StatistikWargaController extends Controller
             } elseif ($usia <= 45) {
                 $totalWarga['dewasa']++;
             } else {
-                $totalWarga['usia61_plus']++;
+                $totalWarga['lansia']++;
             }
         }
 

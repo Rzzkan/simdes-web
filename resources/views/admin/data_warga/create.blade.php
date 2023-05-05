@@ -11,6 +11,16 @@
 </div>
 @endif
 
+
+@if(Session::has('danger'))
+<div class="alert alert-danger text-light py-2 px-4" role="alert">
+    <strong><small>
+            <span class="alert-icon"><i class="ni ni-active-40"></i></span>
+            <strong>Gagal! </strong> {{ Session('danger') }}
+        </small></strong>
+</div>
+@endif
+
 <div class="card col-md-12">
     <div class="card-body">
         <strong>{{ $subtitle }}</strong><br>
