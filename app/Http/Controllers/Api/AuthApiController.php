@@ -78,7 +78,7 @@ class AuthApiController extends Controller
             $dataUpUser['password'] = Hash::make($request->password);
         }
 
-        $dataUpUser['name'] = $request->nama;
+        $dataUpUser['name'] = $request->name;
         $dataUpUser['email'] = $request->email;
         $dataUpUser['avatar'] = $gambar;
         $dataUpUser['alamat'] = $request->alamat;

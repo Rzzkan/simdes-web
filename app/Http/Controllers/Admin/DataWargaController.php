@@ -68,6 +68,12 @@ class DataWargaController extends Controller
             'file_data_warga' => 'required|mimes:xlsx,xls'
         ]);
 
+        $cek_user = User::where('email', $request->nik . "@gmail.com")->count();
+
+        if ($cek_user > 0) {
+            return redirect()->route('data_warga.create')->with(['danger' => 'NIK yang anda masukan sudah digunakan. Pastikan data yang anda masukan benar!']);
+        }
+
         if ($validator->fails()) {
 
             $request->validate([
@@ -126,7 +132,7 @@ class DataWargaController extends Controller
             $cek_nik = User::where('nik', $row[$i][4])->first();
 
             if ($cek_nik != null) {
-                return redirect()->route('data_warga.create')->with(['danger' => 'Terjadi kesalahan pada baris excel ke ' . $i + 1 . ', NIK Telah terdaftar! Mohon periksa kembali file excel terlampir!']);
+                return redirect()->route('data_warga.create')->with(['danger' => 'Terjadi kesalahan pada baris excel ke ' . $i + 1 . '. Format excel tidak sesuai/terdapat duplicate data/terdapat data kolom yang kosong. Mohon periksa kembali file excel terlampir!']);
             }
 
             $user = User::create([
