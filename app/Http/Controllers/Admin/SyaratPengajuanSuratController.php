@@ -41,10 +41,16 @@ class SyaratPengajuanSuratController extends Controller
             'nama' => 'required',
         ]);
 
+        $status = 0;
+        if ($request->status == 1) {
+            $status = $request->status;
+        }
+
         $data_input = SyaratPengajuanSuratModel::create([
             'id_jenis_surat' => $request->id_jenis_surat,
             'nama' => $request->nama,
             'keterangan' => $request->keterangan,
+            'status' => $status,
         ]);
 
         return redirect()->route('jenis_surat.show', $request->id_jenis_surat)->with(['success' => 'Data Berhasil Disimpan']);
@@ -96,12 +102,17 @@ class SyaratPengajuanSuratController extends Controller
             'nama' => 'required',
         ]);
 
+        $status = 0;
+        if ($request->status == 1) {
+            $status = $request->status;
+        }
+
         $data_up = SyaratPengajuanSuratModel::findOrFail($id);
 
         $dataUp['nama'] = $request->nama;
         $dataUp['keterangan'] = $request->keterangan;
+        $dataUp['status'] = $status;
 
-        $data_up = SyaratPengajuanSuratModel::findOrFail($id);
         $data_up->update($dataUp);
         return redirect()->route('jenis_surat.show', $data_up->id_jenis_surat)->with(['success' => 'Data Berhasil Disimpan']);
     }

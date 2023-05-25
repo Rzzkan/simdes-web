@@ -61,9 +61,15 @@ class JenisSuratController extends Controller
             'nama' => 'required',
         ]);
 
+        $status = 0;
+        if ($request->status == '1') {
+            $status = 1;
+        }
+
         $data_input = JenisSuratModel::create([
             'nama' => $request->nama,
             'keterangan' => $request->keterangan,
+            'status' => $status,
         ]);
 
         return redirect()->route('jenis_surat.index')->with(['success' => 'Data Berhasil Disimpan']);
@@ -126,12 +132,17 @@ class JenisSuratController extends Controller
             'nama' => 'required',
         ]);
 
+        $status = 0;
+        if ($request->status == 1) {
+            $status = $request->status;
+        }
+
         $data_up = JenisSuratModel::findOrFail($id);
 
         $dataUp['nama'] = $request->nama;
         $dataUp['keterangan'] = $request->keterangan;
+        $dataUp['status'] = $status;
 
-        $data_up = JenisSuratModel::findOrFail($id);
         $data_up->update($dataUp);
         return redirect()->route('jenis_surat.index')->with(['success' => 'Data Berhasil Disimpan']);
     }

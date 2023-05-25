@@ -4,22 +4,26 @@
 <div class="row">
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+    <div class="col-md-12">
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     </div>
     @endif
 
 
     @if(Session::has('success'))
-    <div class="alert alert-success text-light py-2 px-4" role="alert">
-        <small>
-            <span class="alert-icon"><i class="ni ni-like-2"></i></span>
-            <strong>Berhasil! </strong> {{ Session('success') }}
-        </small>
+    <div class="col-md-12">
+        <div class="alert alert-success text-light py-2 px-4" role="alert">
+            <small>
+                <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                <strong>Berhasil! </strong> {{ Session('success') }}
+            </small>
+        </div>
     </div>
     @endif
 
@@ -43,6 +47,7 @@
                             <tr>
                                 <th class="">No.</th>
                                 <th class="">Syarat Pengajuan Surat</th>
+                                <th class="">Status</th>
                                 <th class="">Aksi</th>
                             </tr>
                         </thead>
@@ -55,6 +60,14 @@
                                 <td class=""><button class="btn bg-gradient-info btn-sm px-3 mb-0 disabled">{{ $no++ }}</button></td>
                                 <td class="">
                                     <strong>{{ $dt->nama }}</strong><br>
+                                </td>
+
+                                <td>
+                                    @if($dt->status == 1)
+                                    <strong class="text-success"><i>Aktif</i></strong>
+                                    @else
+                                    <strong class="text-danger"><i>Non Aktif</i></strong>
+                                    @endif
                                 </td>
 
                                 <td class="">
@@ -146,6 +159,14 @@
                         <label class="col-12">Syarat Pengajuan Surat</label>
                         <div class="col-sm-12">
                             <input type="text" name="nama" class="form-control form-control-normal" placeholder="Syarat Pengajuan Surat...">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" name="status" value="1" checked> Status Aktif
+                            </label>
                         </div>
                     </div>
 

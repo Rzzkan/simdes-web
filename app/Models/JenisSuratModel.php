@@ -12,7 +12,7 @@ class JenisSuratModel extends Model
     protected $table = 'jenis_surat';
 
     protected $fillable = [
-        'nama', 'keterangan'
+        'nama', 'keterangan', 'status'
     ];
 
     protected $hidden = [];

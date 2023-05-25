@@ -30,6 +30,7 @@
                             <tr>
                                 <th class="">No.</th>
                                 <th class="">Surat</th>
+                                <th class="">Status</th>
                                 <th class="">Syarat</th>
                                 <th class="">Aksi</th>
                             </tr>
@@ -43,6 +44,13 @@
                                 <td class=""><button class="btn bg-gradient-info btn-sm px-3 mb-0 disabled">{{ $no++ }}</button></td>
                                 <td class="">
                                     <strong>{{ $dt->nama }}</strong><br>
+                                </td>
+                                <td>
+                                    @if($dt->status == 1)
+                                    <strong class="text-success"><i>Aktif</i></strong>
+                                    @else
+                                    <strong class="text-danger"><i>Non Aktif</i></strong>
+                                    @endif
                                 </td>
                                 <td>
                                     <a class="btn btn-sm btn-success px-3 mb-0" href="{{ route('jenis_surat.show', $dt->id) }}">Syarat</a>

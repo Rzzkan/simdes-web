@@ -25,6 +25,14 @@
                 </div>
             </div>
 
+            <div class="form-group col-md-12">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="status" value="1" checked> Status Aktif
+                    </label>
+                </div>
+            </div>
+
             <script src="https://cdn.tiny.cloud/1/ltswtbla0em8qkup9a7gva2zibb2qy6hbfnq4mgf778q8swq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
             <div class="form-group col-md-12">

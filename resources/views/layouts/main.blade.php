@@ -429,12 +429,12 @@
     </aside>
     <main class="main-content border-radius-lg ">
         <!-- Navbar -->
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 mt-3 border-radius-md bg-primary" id="navbarBlur" navbar-scroll="false">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 mt-3 border-radius-md" style="background-color: #bb0a1e;" id="navbarBlur" navbar-scroll="false">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 text-light">
                         <small>
-                            <a class="opacity-5 text-light" href="{{ route('dashboard.index') }}">Beranda</a> / {{ $toptitle }}
+                            <a class="text-light" href="{{ route('dashboard.index') }}">Beranda</a> / {{ $toptitle }}
                         </small>
                     </ol>
                     <h6 class="font-weight-bolder mb-0 text-light">{{ $title }}</h6>
@@ -492,6 +492,7 @@
         </div>
 
     </main>
+
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
             <i class="fa fa-cog py-2"> </i>

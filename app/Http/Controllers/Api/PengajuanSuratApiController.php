@@ -26,7 +26,8 @@ class PengajuanSuratApiController extends Controller
 
     public function jenis_surat(Request $request)
     {
-        $all_data = JenisSuratModel::orderby('id', 'DESC')
+        $all_data = JenisSuratModel::where('status', '1')
+            ->orderby('id', 'DESC')
             ->get();
 
         return response()->json([
@@ -42,7 +43,9 @@ class PengajuanSuratApiController extends Controller
             'id_pengajuan_surat' => 'required',
         ]);
 
-        $all_data = SyaratPengajuanSuratUserModel::with('syarat')->where('id_pengajuan_surat', $request->id_pengajuan_surat)
+        $all_data = SyaratPengajuanSuratUserModel::with('syarat')
+            ->where('status', '1')
+            ->where('id_pengajuan_surat', $request->id_pengajuan_surat)
             ->orderby('id', 'DESC')
             ->get();
 
